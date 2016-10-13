@@ -1,0 +1,5 @@
+ROOT_DIR = [
+            u"Z:\Resource\Share\sкудх\Shotgun\projects\df\Env_GPUCache",
+            r"Q:/ants/Env_GPUCache",
+            r'Z:/Shotgun/projects/df/Env_GPUCache'
+            ]
