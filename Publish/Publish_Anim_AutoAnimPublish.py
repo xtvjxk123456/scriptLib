@@ -1,5 +1,5 @@
 import maya.cmds as mc
-# import pymel.core as pm
+import pymel.core as pm
 import os
 import pixoLibs.pixoFileTools as pft
 import pixoMaya.shelf.publish_cam as cam_publish
@@ -72,7 +72,8 @@ def NoUI_publish():
     anim_publish(filepath)
     # we can not publish abc cache
     # you can export cache youself
-    mc.warning('no UI anim publish complete!<no playblast,no update referece,no anim cache export>')
+    mc.warning('no UI anim publish complete!<--No playblast,No update referece,No anim cache export-->')
+
 
 def run():
     NoUI_publish()
