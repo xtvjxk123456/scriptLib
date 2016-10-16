@@ -14,3 +14,4 @@ def getobject():
 
 def run():
     base.export_anim_publish(getobject)
+    mc.warning('Export Complete!')
