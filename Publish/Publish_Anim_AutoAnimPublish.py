@@ -76,4 +76,5 @@ def NoUI_publish():
 
 
 def run():
-    NoUI_publish()
+    # NoUI_publish()
+    mc.warning('just for testing,Because i can not write info to shotgun')
