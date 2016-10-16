@@ -1,3 +1,4 @@
+# coding:utf-8
 import maya.cmds as mc
 import pymel.core as pm
 import os
@@ -57,8 +58,8 @@ def NoUI_publish():
     # playblast
     # playblast is hard to write here ,so playblast first
 
-    # publishcamera
-    cam_publish.run()
+    # publishcamera相机导出时会弹窗,所以就不导出了
+    # cam_publish.run()
 
     # update referece
     # you can do it before this script
@@ -72,9 +73,9 @@ def NoUI_publish():
     anim_publish(filepath)
     # we can not publish abc cache
     # you can export cache youself
-    mc.warning('no UI anim publish complete!<--No playblast,No update referece,No anim cache export-->')
+    mc.warning('no UI anim publish complete!<--No playblast,No update referece,No Camera Export,No anim cache export-->')
 
 
 def run():
-    # NoUI_publish()
-    mc.warning('just for testing,Because i can not write info to shotgun')
+    NoUI_publish()
+    # mc.warning('just for testing,Because i can not write info to shotgun')
