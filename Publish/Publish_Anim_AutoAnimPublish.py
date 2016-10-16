@@ -73,3 +73,6 @@ def NoUI_publish():
     # we can not publish abc cache
     # you can export cache youself
     mc.warning('no UI anim publish complete!<no playblast,no update referece,no anim cache export>')
+
+def run():
+    NoUI_publish()
