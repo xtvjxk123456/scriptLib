@@ -3,7 +3,7 @@ import maya.cmds as mc
 import pymel.core as pm
 import os
 import pixoLibs.pixoFileTools as pft
-import pixoMaya.shelf.publish_cam as cam_publish
+# import pixoMaya.shelf.publish_cam as cam_publish
 from ui_elements.screenshot import screen_capture_file
 import pixoMaya.shelf.animation.anim_organize as organize
 import pixoMaya.td_tools as td_tools
