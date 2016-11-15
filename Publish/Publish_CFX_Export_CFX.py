@@ -24,21 +24,22 @@ def exportCFX():
     for char in chars:
         possibleName = char + '*:' + char + '_CFX'
         trans = pm.ls(possibleName)
-        for tran in trans:
-            # begin = pm.playbackOptions(q=True, ast=True)
-            end = pm.playbackOptions(q=True, aet=True)
-            cmd = '-frameRange {} {} -stripNamespaces -uvWrite -root {} -file {}'.format(950, end,
-                                                                                         tran.name(long=True),
-                                                                                         os.path.normpath(
-                                                                                             os.path.join(cfx,
-                                                                                                          '{}.abc'.format(
-                                                                                                              tran.name().split(
-                                                                                                                  ':')[
-                                                                                                                  0]
-                                                                                                          ))))
-        print cmd
-        mc.sysFile(cfx, md=True)
-        pm.AbcExport(j=cmd)
+        if trans:
+            for tran in trans:
+                # begin = pm.playbackOptions(q=True, ast=True)
+                end = pm.playbackOptions(q=True, aet=True)
+                cmd = '-frameRange {} {} -stripNamespaces -uvWrite -root {} -file {}'.format(950, end,
+                                                                                             tran.name(long=True),
+                                                                                             os.path.normpath(
+                                                                                                 os.path.join(cfx,
+                                                                                                              '{}.abc'.format(
+                                                                                                                  tran.name().split(
+                                                                                                                      ':')[
+                                                                                                                      0]
+                                                                                                              ))))
+            print cmd
+            mc.sysFile(cfx, md=True)
+            pm.AbcExport(j=cmd)
 
 
 def showCloth():
