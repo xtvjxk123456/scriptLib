@@ -45,6 +45,8 @@ def getCameraInShot():
     for x in cameraList:
         if x[0].split('|')[-1] == cameraName:
             allPossible.append(x[1])
+    if not allPossible:
+        mc.warning(u'找不到想要的相机,请检查先相机的命名')
     return allPossible
 
 
