@@ -1,4 +1,5 @@
 # coding:utf-8
+import os
 import pymel.core as pm
 import pixoLibs.pixoFileTools as pft
 # import maya.mel as mel
@@ -39,8 +40,11 @@ def getCameraInShot():
     transforms = map(lambda x: mc.listRelatives(x, p=True, pa=True)[0], mc.ls(type='camera'))
     cameraList = zip(transforms, mc.ls(type='camera'))
     f = mc.file(q=True, sn=True)
-    path_obj = pft.PathDetails.parse_path(f)
-    cameraName = 'cam_' + path_obj.seq + '_' + path_obj.shot
+    # path_obj = pft.PathDetails.parse_path(f)
+    basefilename = os.path.basename(f).split('_')
+    seq = basefilename[1]
+    shot = basefilename[2]
+    cameraName = 'cam_' + seq + '_' + shot
     allPossible = []
     for x in cameraList:
         if x[0].split('|')[-1] == cameraName:
