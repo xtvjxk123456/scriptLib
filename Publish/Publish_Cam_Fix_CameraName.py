@@ -6,7 +6,7 @@ import maya.cmds as mc
 def fix_cam_shape_name(shape):
     CameraTransform = mc.listRelatives(shape, p=True)[0]
     rightname = CameraTransform + 'shape'
-    mc.rename(CameraTransform, rightname)
+    mc.rename(shape, rightname)
 
 
 def run():
