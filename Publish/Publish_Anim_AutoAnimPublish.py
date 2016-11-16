@@ -68,7 +68,7 @@ def NoUI_publish():
 
     update_xml()
 
-    organize.run()
+    # organize.run()
 
     anim_publish(filepath)
     # we can not publish abc cache
