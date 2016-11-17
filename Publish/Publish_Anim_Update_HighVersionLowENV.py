@@ -68,3 +68,5 @@ def run():
             lowENV = node.high_version_low_mdl_path()
             if lowENV:
                 fileRef.replaceWith(lowENV)
+                import deleteInvaildReferenceNode;deleteInvaildReferenceNode.run()
+                import deleteInvaildReferenceNode;deleteInvaildReferenceNode.run()
