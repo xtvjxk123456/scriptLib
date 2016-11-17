@@ -35,7 +35,7 @@ class AssetReference(object):
             return self.path()
 
     def high_version_low_mdl_path(self):
-        if 'Environment' == self.assetType:
+        if 'Environment' == self.assetType and 'mdl' == self.task:
             publishPath = r'Z:/Shotgun/projects/{}/_library/assets/{}/{}/{}/_publish/*/{}'.format(self.project,
                                                                                                   self.assetType,
                                                                                                   self.asset,
@@ -45,11 +45,16 @@ class AssetReference(object):
                                                                                                        self.asset,
                                                                                                        self.task,
                                                                                                        'lo']))
-            paths = glob.glob(publishPath + '_*.{}'.format(self.ext))
+            # paths = glob.glob(publishPath + '_*.{}'.format(self.ext))
+            paths = glob.glob(publishPath + '_*')
             versions = {}
             for path in paths:
                 version = os.path.basename(os.path.normpath(path)).split('_')[4]
-                versions.update({version: path})
+                try:
+                    versions.update({version: path})
+                except Exception:
+                    continue
+
             order = sorted(versions.keys())
             return os.path.normpath(versions[order[-1]])
         else:
