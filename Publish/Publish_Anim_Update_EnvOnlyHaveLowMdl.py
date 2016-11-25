@@ -61,12 +61,33 @@ class AssetReference(object):
             return None
 
 
-def run():
+def replace_with_only_low_env():
     for fileRef in pm.listReferences():
         node = AssetReference(fileRef.path)
         if 'Environment' == node.assetType:
             lowENV = node.high_version_low_mdl_path()
+            normalENV = node.aas_path()
+            if lowENV and os.path.basename(os.path.dirname(lowENV)) > os.path.basename(os.path.dirname(normalENV)):
+                fileRef.replaceWith(lowENV)
+                import deleteInvaildReferenceNode
+                deleteInvaildReferenceNode.run()
+                import deleteInvaildReferenceNode
+                deleteInvaildReferenceNode.run()
+
+
+def replace_all_with_low_env():
+    for fileRef in pm.listReferences():
+        node = AssetReference(fileRef.path)
+        if 'Environment' == node.assetType:
+            lowENV = node.high_version_low_mdl_path()
+            # normalENV = node.aas_path()
             if lowENV:
                 fileRef.replaceWith(lowENV)
-                import deleteInvaildReferenceNode;deleteInvaildReferenceNode.run()
-                import deleteInvaildReferenceNode;deleteInvaildReferenceNode.run()
+                import deleteInvaildReferenceNode
+                deleteInvaildReferenceNode.run()
+                import deleteInvaildReferenceNode
+                deleteInvaildReferenceNode.run()
+
+
+def run():
+    replace_with_only_low_env()
