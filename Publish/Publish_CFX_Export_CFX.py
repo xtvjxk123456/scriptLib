@@ -65,3 +65,4 @@ def configCloth(status):
 
 def run():
     exportCFX()
+    pm.warning('Export CFX done...')
