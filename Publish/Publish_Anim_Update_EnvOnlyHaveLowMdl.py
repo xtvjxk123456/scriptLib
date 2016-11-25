@@ -72,6 +72,9 @@ def replace_with_only_low_env():
                 deleteInvaildReferenceNode.run()
                 import deleteInvaildReferenceNode
                 deleteInvaildReferenceNode.run()
+            else:
+                pm.warning('Ignore replacing this env {}'.format(node.asset))
+                continue
 
 
 def replace_all_with_low_env():
@@ -86,7 +89,11 @@ def replace_all_with_low_env():
                 deleteInvaildReferenceNode.run()
                 import deleteInvaildReferenceNode
                 deleteInvaildReferenceNode.run()
+            else:
+                pm.warning('Ignore replacing this env {}'.format(node.asset))
+                continue
 
 
 def run():
     replace_with_only_low_env()
+    pm.warning('Done what can do,please check..')
