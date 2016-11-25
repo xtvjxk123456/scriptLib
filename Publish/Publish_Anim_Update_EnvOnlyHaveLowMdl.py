@@ -96,4 +96,4 @@ def replace_all_with_low_env():
 
 def run():
     replace_with_only_low_env()
-    pm.warning('Done what can do,please check..')
+    pm.warning('Done replacing EnvAsset than only has low model,please check..')
