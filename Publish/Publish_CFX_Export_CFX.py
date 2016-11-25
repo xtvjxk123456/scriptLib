@@ -42,34 +42,25 @@ def exportCFX():
             pm.AbcExport(j=cmd)
 
 
-def showCloth():
+def configCloth(status):
+    """
+
+    :param status: 0:hide cloth,1:show cloth
+    :return: None
+    """
     chars = getChar()
     for char in chars:
         possibleLocator = char + '*:' + char + '_loc'
-        try:
-            Attr = pm.PyNode(possibleLocator).attr('wrap_cloth')
-        except pm.MayaAttributeError, e:
-            pm.warning(u'绑定设置不合理,缺少相应属性设置:{}'.format(e))
-            continue
-        except pm.MayaNodeError, e:
-            pm.warning(u'绑定设置不完善,缺少cfx的loc:{}'.format(e))
-            continue
-        Attr.set(1)
+        trans = pm.ls(possibleLocator)
+        if trans:
+            for tran in trans:
+                try:
+                    Attr = pm.PyNode(tran).attr('wrap_cloth')
+                except pm.MayaAttributeError, e:
+                    pm.warning(u'绑定设置不合理,缺少相应属性设置:{}'.format(e))
+                    continue
 
-
-def hideCloth():
-    chars = getChar()
-    for char in chars:
-        possibleLocator = char + '*:' + char + '_loc'
-        try:
-            Attr = pm.PyNode(possibleLocator).attr('wrap_cloth')
-        except pm.MayaAttributeError, e:
-            pm.warning(u'绑定设置不合理,缺少相应属性设置:{}'.format(e))
-            continue
-        except pm.MayaNodeError, e:
-            pm.warning(u'绑定设置不完善,缺少cfx的loc:{}'.format(e))
-            continue
-        Attr.set(0)
+                Attr.set(status)
 
 
 def run():
