@@ -48,15 +48,18 @@ class AssetReference(object):
             # paths = glob.glob(publishPath + '_*.{}'.format(self.ext))
             paths = glob.glob(publishPath + '_*')
             versions = {}
-            for path in paths:
-                version = os.path.basename(os.path.normpath(path)).split('_')[4]
-                try:
-                    versions.update({version: path})
-                except Exception:
-                    continue
+            if not paths:
+                for path in paths:
+                    version = os.path.basename(os.path.normpath(path)).split('_')[4]
+                    try:
+                        versions.update({version: path})
+                    except Exception:
+                        continue
 
-            order = sorted(versions.keys())
-            return os.path.normpath(versions[order[-1]])
+                order = sorted(versions.keys())
+                return os.path.normpath(versions[order[-1]])
+            else:
+                return None
         else:
             return None
 
