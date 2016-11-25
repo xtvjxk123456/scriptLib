@@ -48,7 +48,7 @@ class AssetReference(object):
             # paths = glob.glob(publishPath + '_*.{}'.format(self.ext))
             paths = glob.glob(publishPath + '_*')
             versions = {}
-            if not paths:
+            if paths:
                 for path in paths:
                     version = os.path.basename(os.path.normpath(path)).split('_')[4]
                     try:
@@ -58,10 +58,6 @@ class AssetReference(object):
 
                 order = sorted(versions.keys())
                 return os.path.normpath(versions[order[-1]])
-            else:
-                return None
-        else:
-            return None
 
 
 def replace_with_only_low_env():
