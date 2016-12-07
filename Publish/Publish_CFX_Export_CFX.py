@@ -49,10 +49,19 @@ def configCloth(status):
     :return: None
     """
     chars = getChar()
+    needCFX = []
     for char in chars:
+        possibleCFX = char + '*:' + char + '_CFX'
+        trans = pm.ls(possibleCFX)
+        if trans:
+            # print u"---{} 需要布料解算".format(char)
+            needCFX.append(char)
+
+    for char in needCFX:
         possibleLocator = char + '*:' + char + '_loc'
         trans = pm.ls(possibleLocator)
         if trans:
+
             for tran in trans:
                 try:
                     Attr = pm.PyNode(tran).attr('wrap_cloth')
@@ -61,6 +70,8 @@ def configCloth(status):
                     continue
 
                 Attr.set(status)
+        else:
+            pm.warning(u'绑定设置不合理,缺少节点设置:{}'.format(possibleLocator))
 
 
 def run():

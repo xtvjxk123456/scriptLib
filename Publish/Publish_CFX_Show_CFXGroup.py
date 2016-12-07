@@ -19,14 +19,29 @@ def config_cfx_group(status):
     :param status: 1:show ,0:hide
     :return:
     """
+    print '_'*40
     chars = getChar()
+    needCFX = []
+    noNeedCFX = []
     for char in chars:
         possibleCFX = char + '*:' + char + '_CFX'
         trans = pm.ls(possibleCFX)
         if trans:
+            # print u"---{} 需要布料解算".format(char)
+            needCFX.append(char)
             for tran in trans:
                 Attr = pm.PyNode(tran).attr('visibility')
                 Attr.set(status)
+        else:
+            # print u"---{} 不需要布料解算".format(char)
+            noNeedCFX.append(char)
+    print u"需要布料解算的角色有:"
+    for x in needCFX:
+        print '----',x
+    print u"不需要布料解算的角色有:"
+    for n in noNeedCFX:
+        print '----', n
+    print '_' * 40
 
 
 def run():
