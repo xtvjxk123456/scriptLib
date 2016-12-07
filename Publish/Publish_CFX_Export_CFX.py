@@ -48,6 +48,7 @@ def configCloth(status):
     :param status: 0:hide cloth,1:show cloth
     :return: None
     """
+    print "-" * 40
     chars = getChar()
     needCFX = []
     for char in chars:
@@ -72,6 +73,7 @@ def configCloth(status):
                 Attr.set(status)
         else:
             pm.warning(u'绑定设置不合理,缺少节点设置:{}'.format(possibleLocator))
+    print "-" * 40
 
 
 def run():
