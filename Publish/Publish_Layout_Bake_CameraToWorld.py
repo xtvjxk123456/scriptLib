@@ -55,6 +55,8 @@ def getCameraInShot():
 
 
 def makeCameraToWorld(cameraShape):
+    if not cameraShape:
+        return
     CameraTransform = mc.listRelatives(cameraShape, p=True)[0]
     TempLocator = mc.spaceLocator(p=[0, 0, 0], name='tempLocator')[0]
     # constrain tempLocator and bake
