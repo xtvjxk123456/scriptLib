@@ -47,7 +47,7 @@ def anim_publish(filepath):
 # Auto publish by one clicked
 
 def NoUI_publish():
-    filepath = mc.file(q=True, sn=True)
+    filepath = pm.sceneName()
     # make thumb
     screen_capture_file(pft.getPreviewPath(filepath))
 
