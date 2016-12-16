@@ -4,7 +4,7 @@ import pymel.core as pm
 import pixoLibs.pixoFileTools as pft
 # import maya.mel as mel
 import maya.cmds as mc
-import pymel.cora as pm
+
 
 
 def lockObjectTransform(shapename):
