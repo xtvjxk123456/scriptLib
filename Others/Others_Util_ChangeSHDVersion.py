@@ -25,7 +25,7 @@ def getAllSHD():
     # -----------
     reference = []
     for x in pm.listReferences():
-        if re.match(r'\d+[a-zA-Z]*',x.path.split('_')[1]):
+        if re.match(r'\d+[a-zA-Z]*',os.path.basename(x.path).split('_')[1]):
             continue
         asset = os.path.basename(x.path).split('_')[1]
         if ps.get_asset_type_by_name(asset)[1] == 'Environment':
@@ -36,7 +36,7 @@ def getAllSHD():
 
 class SHDInfo(CharInfo):
     def __init__(self, refnode):
-        super(CharInfo, self).__init__(refnode)
+        super(SHDInfo, self).__init__(refnode)
 
     def _get_versions(self):
         SHD_publish = r'Z:/Shotgun/projects/df/_library/assets/Environment/{}/shd/_publish/'.format(self.asset)
@@ -82,6 +82,7 @@ class MainUI(qg.QWidget):
         self.setObjectName("change_version")
         self.setParent(getMayaWindow())
         self.setWindowFlags(qc.Qt.Window)
+        self.setMinimumWidth(300)
         self.setStyleSheet(
             "QWidget{color: #eff0f1;background-color: #31363b;selection-background-color:#3daee9;selection-color: #eff0f1;background-clip: border;border: 0px transparent black;outline: 0;}"
             "QWidget:item:selected{background-color: #3daee9;}"
