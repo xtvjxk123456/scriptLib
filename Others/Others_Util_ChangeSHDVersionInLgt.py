@@ -4,7 +4,7 @@ import PySide.QtCore as qc
 import maya.OpenMayaUI as apiUI
 import shiboken
 
-from Others_Util_ChangeCharVersion import CharInfo
+from Others_Util_ChangeCharVersionInAnim import CharInfo
 import pymel.core as pm
 import os
 import re
