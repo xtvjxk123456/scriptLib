@@ -92,7 +92,7 @@ class CharInfo(qg.QWidget):
 class MainUI(qg.QWidget):
     def __init__(self):
         super(MainUI, self).__init__()
-        self.setWindowTitle("Only change char version")
+        self.setWindowTitle("Only change char version in Anim")
         self.setObjectName("change_version")
         self.setParent(getMayaWindow())
         self.setWindowFlags(qc.Qt.Window)
