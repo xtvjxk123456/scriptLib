@@ -1,9 +1,21 @@
 # coding:utf-8
-from Others_Util_ChangeCharVersion import CharInfo, getMayaWindow
+import PySide.QtGui as qg
+import PySide.QtCore as qc
+import maya.OpenMayaUI as apiUI
+import shiboken
+
+from Others_Util_ChangeCharVersion import CharInfo
 import pymel.core as pm
 import os
+import re
 import glob
 import previewShaderInAnim as ps
+
+
+def getMayaWindow():
+    ptr = apiUI.MQtUtil.mainWindow()
+    if ptr is not None:
+        return shiboken.wrapInstance(long(ptr), qg.QMainWindow)
 
 
 def getAllSHD():
@@ -13,6 +25,8 @@ def getAllSHD():
     # -----------
     reference = []
     for x in pm.listReferences():
+        if re.match(r'\d+[a-zA-Z]*',x.path.split('_')[1]):
+            continue
         asset = os.path.basename(x.path).split('_')[1]
         if ps.get_asset_type_by_name(asset)[1] == 'Environment':
             reference.append(x)
@@ -59,3 +73,58 @@ class SHDInfo(CharInfo):
             deleteInvaildReferenceNode.run()
         else:
             pm.warning(u'{}的shd publish目录有问题'.format(self.asset))
+
+
+class MainUI(qg.QWidget):
+    def __init__(self):
+        super(MainUI, self).__init__()
+        self.setWindowTitle("Only change SHD version in LGT")
+        self.setObjectName("change_version")
+        self.setParent(getMayaWindow())
+        self.setWindowFlags(qc.Qt.Window)
+        self.setStyleSheet(
+            "QWidget{color: #eff0f1;background-color: #31363b;selection-background-color:#3daee9;selection-color: #eff0f1;background-clip: border;border: 0px transparent black;outline: 0;}"
+            "QWidget:item:selected{background-color: #3daee9;}"
+            "QLabel{border: 0px solid black;}"
+            "QPushButton{color: rgb(202, 207, 210);background-color: rgb(27, 28, 30);border-width: 1px;border-color: #76797C;border-style: solid;padding: 5px;border-radius: 10px;outline: none;}"
+            "QPushButton:pressed{background-color: #3daee9;padding-top: -15px;padding-bottom: -17px;}"
+            "QPushButton:hover{border: 1px solid #3daee9;color: #eff0f1;}"
+        )
+
+        self.setLayout(qg.QVBoxLayout())
+        self.layout().setContentsMargins(2, 2, 2, 0)
+        self.layout().setSpacing(5)
+
+        self.tilte = qg.QLabel('just change char version')
+        self.tilte.setFixedHeight(30)
+        self.tilte.setAlignment(qc.Qt.AlignCenter)
+        self.layout().addWidget(self.tilte)
+
+        self.SHDs = getAllSHD()
+        self.assetItem = []
+        if self.SHDs:
+            for n in self.SHDs:
+                item = SHDInfo(n)
+                self.assetItem.append(item)
+                self.layout().addWidget(item)
+
+        self.batchWidget = qg.QFrame()
+        self.batchWidget.setLayout(qg.QHBoxLayout())
+        self.batchWidget.layout().insertStretch(0)
+
+        self.changeAll = qg.QPushButton('change all!')
+        self.changeAll.clicked.connect(self._change_all)
+        self.batchWidget.layout().addWidget(self.changeAll)
+        self.layout().insertStretch(-2)
+        self.layout().addWidget(self.batchWidget)
+
+    def _change_all(self):
+        for item in self.assetItem:
+            item.update_file()
+
+
+def run():
+    if pm.window('change_version', q=True, ex=True):
+        pm.deleteUI('change_version')
+    win = MainUI()
+    win.show()
