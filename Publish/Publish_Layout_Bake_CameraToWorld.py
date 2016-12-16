@@ -4,6 +4,7 @@ import pymel.core as pm
 import pixoLibs.pixoFileTools as pft
 # import maya.mel as mel
 import maya.cmds as mc
+import pymel.cora as pm
 
 
 def lockObjectTransform(shapename):
@@ -39,7 +40,7 @@ def DeleteKeyFrameInTransfrom(transform):
 def getCameraInShot():
     transforms = map(lambda x: mc.listRelatives(x, p=True, pa=True)[0], mc.ls(type='camera'))
     cameraList = zip(transforms, mc.ls(type='camera'))
-    f = mc.file(q=True, sn=True)
+    f = pm.sceneName()
     # path_obj = pft.PathDetails.parse_path(f)
     basefilename = os.path.basename(f).split('_')
     seq = basefilename[1]
