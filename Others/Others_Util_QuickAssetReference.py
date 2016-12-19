@@ -134,10 +134,11 @@ class MainUI(QtGui.QWidget):
         self.assetList = AdvComboBox()
         self.assetList.addItems(getAllAsset())
         self.assetList.setModelColumn(0)
+        self.assetList.activated[unicode].connect(self._update_tooltip)
 
         self.taskList = QtGui.QComboBox()
         self.taskList.addItems(['mdl', 'rig', 'shd', 'shader'])
-        self.taskList.currentIndexChanged[unicode].connect(self._preview_result)
+        self.taskList.activated[unicode].connect(self._update_tooltip)
 
         self.importButton = QtGui.QPushButton('import it!')
         self.importButton.clicked.connect(self._import_asset_in_task)
@@ -155,10 +156,13 @@ class MainUI(QtGui.QWidget):
         self.mainLayout.insertStretch(-2)
         self.mainLayout.addWidget(self.previewBar)
 
-    def _preview_result(self, task):
-        result = getAssetPath(self.assetList.currentText(), task)
-        self.previewBar.showMessage(result, 2000)
-        self.previewBar.showMessage('Ready!')
+    def _update_tooltip(self, task):
+        result = getAssetPath(self.assetList.currentText(), self.taskList.currentText())
+        self.importButton.setToolTip(result)
+
+    # def _preview_result(self, task):
+    #     result = getAssetPath(self.assetList.currentText(), task)
+    #     return result
 
     def _import_asset_in_task(self):
         assetName = self.assetList.currentText()
@@ -169,7 +173,7 @@ class MainUI(QtGui.QWidget):
             if taskName == 'shader':
                 postfix = '_shd'
             pm.createReference(importpath, namespace=assetName + postfix)
-            self.previewBar.showMessage('Done!', 5000)
+            self.previewBar.showMessage('Done!', 100000)
             self.previewBar.showMessage('Ready!')
 
 
