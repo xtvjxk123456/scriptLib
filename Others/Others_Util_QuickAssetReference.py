@@ -26,10 +26,11 @@ def getAssetPath(asset, task):
         assetType = ps.get_asset_type_by_name(asset)[1]
     except Exception, e:
         pm.warning(e)
+        return None
     standardPath = os.path.normpath(os.path.join(ASSETLIBPATH, '{}/{}/{}/_publish'.format(assetType, asset, task)))
     if task == 'shader':
         standardPath = os.path.normpath(os.path.join(ASSETLIBPATH, '{}/{}/{}/_publish'.format(assetType, asset, 'shd')))
-    if standardPath:
+    if os.path.exists(standardPath):
         versions = ps.find_folders_in_dir(standardPath)
 
         if not versions:
@@ -129,12 +130,14 @@ class MainUI(QtGui.QWidget):
 
         self.information = QtGui.QLabel('Import asset in selected task')
         self.information.setAlignment(QtCore.Qt.AlignCenter)
+
         self.assetList = AdvComboBox()
         self.assetList.addItems(getAllAsset())
         self.assetList.setModelColumn(0)
 
         self.taskList = QtGui.QComboBox()
         self.taskList.addItems(['mdl', 'rig', 'shd', 'shader'])
+        self.taskList.currentIndexChanged[unicode].connect(self._preview_result)
 
         self.importButton = QtGui.QPushButton('import it!')
         self.importButton.clicked.connect(self._import_asset_in_task)
@@ -151,6 +154,11 @@ class MainUI(QtGui.QWidget):
         self.mainLayout.addLayout(self.importLayout)
         self.mainLayout.insertStretch(-2)
         self.mainLayout.addWidget(self.previewBar)
+
+    def _preview_result(self, task):
+        result = getAssetPath(self.assetList.currentText(), task)
+        self.previewBar.showMessage(result, 2000)
+        self.previewBar.showMessage('Ready!')
 
     def _import_asset_in_task(self):
         assetName = self.assetList.currentText()
