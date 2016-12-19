@@ -139,6 +139,7 @@ class MainUI(QtGui.QWidget):
         self.taskList = QtGui.QComboBox()
         self.taskList.addItems(['mdl', 'rig', 'shd', 'shader'])
         self.taskList.activated[unicode].connect(self._update_tooltip)
+        self.taskList.currentIndexChanged[unicode].connect(self._update_tooltip)
 
         self.importButton = QtGui.QPushButton('import it!')
         self.importButton.clicked.connect(self._import_asset_in_task)
@@ -159,10 +160,6 @@ class MainUI(QtGui.QWidget):
     def _update_tooltip(self, task):
         result = getAssetPath(self.assetList.currentText(), self.taskList.currentText())
         self.importButton.setToolTip(result)
-
-    # def _preview_result(self, task):
-    #     result = getAssetPath(self.assetList.currentText(), task)
-    #     return result
 
     def _import_asset_in_task(self):
         assetName = self.assetList.currentText()
