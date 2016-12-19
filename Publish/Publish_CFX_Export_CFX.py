@@ -19,8 +19,7 @@ def getChar():
     return char
 
 
-def exportCFX():
-    chars = getChar()
+def exportCFX(chars):
     for char in chars:
         possibleName = char + '*:' + char + '_CFX'
         trans = pm.ls(possibleName)
@@ -77,5 +76,5 @@ def configCloth(status):
 
 
 def run():
-    exportCFX()
+    exportCFX(getChar())
     pm.warning('Export CFX done...')
