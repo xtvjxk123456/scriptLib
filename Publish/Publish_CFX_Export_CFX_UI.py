@@ -43,4 +43,4 @@ def exportCFX(items):
 
 
 def run():
-    magic_list.run(getChar, 'CFX Publish', {'Export CFX!': exportCFX})
+    magic_list.run(getChar, 'CFX Publish', {'Export': exportCFX})
