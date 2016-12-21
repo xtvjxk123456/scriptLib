@@ -20,7 +20,8 @@ def getChar():
     for c in char:
         possibleName = c + '*:' + c + '_CFX'
         trans = pm.ls(possibleName)
-        ui_Items.extend(trans)
+        trannames = map(lambda t: t.name(), trans)
+        ui_Items.extend(trannames)
     return ui_Items
 
 
@@ -33,7 +34,7 @@ def exportCFX(items):
                                                                                      os.path.normpath(
                                                                                          os.path.join(cfx,
                                                                                                       '{}.abc'.format(
-                                                                                                          tran.name().split(
+                                                                                                          tran.split(
                                                                                                               ':')[
                                                                                                               0]
                                                                                                       ))))
@@ -42,5 +43,9 @@ def exportCFX(items):
     pm.AbcExport(j=cmd)
 
 
+def openDir(item):
+    os.startfile(cfx)
+
+
 def run():
-    magic_list.run(getChar, 'CFX Publish', {'Export': exportCFX})
+    magic_list.run(getChar, 'CFX Publish', {'Export': exportCFX, 'Go to File': openDir})
