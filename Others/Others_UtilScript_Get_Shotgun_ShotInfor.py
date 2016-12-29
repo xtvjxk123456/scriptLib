@@ -22,7 +22,7 @@ def getAssetType(asset):
         ['code', 'is', asset],
         ['project', 'is', {'type': 'Project', 'id': projeceInfo['id']}]
     ],
-                            ['sg_asset_type', 'code'])
+                            ['sg_asset_type', 'sg_asset_name__cn', 'code'])
     return assetInfo
 
 
@@ -49,7 +49,14 @@ def run():
     print 'Shotgun Asset num is ', len(assets)
     print 'Asset Content:'
     for x in assets:
-        print '-- [', x['name'], ']  AssetType : <', getAssetType(x['name'])['sg_asset_type'], '>'
+        CNInfo = getAssetType(x['name'])['sg_asset_name__cn']
+        if CNInfo:
+            cnName = CNInfo.decode('utf-8')
+        else:
+            cnName = None
+
+        print '-- [', x['name'], '] NameCn :', cnName, '] AssetType : <', getAssetType(x['name'])[
+            'sg_asset_type'], '>'
     print 'Task Information:'
     for x in tasks:
         assignto = getTaskInfor(x['name'])['task_assignees']
