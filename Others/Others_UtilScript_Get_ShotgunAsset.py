@@ -12,7 +12,7 @@ def getShotInfo(shot):
         ['project', 'is', {'type': 'Project', 'id': projeceInfo['id']}]
     ],
                            ['assets', 'sg_asset_type', 'sg_head_in', 'sg_tail_out', 'sg_cut_in', 'sg_cut_out',
-                            'sg_resolution', 'code'])
+                            'sg_resolution', 'code','tasks'])
     return shotInfo
 
 
