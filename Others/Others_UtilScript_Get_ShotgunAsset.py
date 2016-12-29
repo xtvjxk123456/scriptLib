@@ -46,11 +46,11 @@ def run():
     print '#' * 60
     print '-------------shot %s----------------' % shot_name
     print 'FrameRange is {}-{}'.format(getShotInfo(shot_name)['sg_cut_in'], getShotInfo(shot_name)['sg_cut_out'])
-    print 'shotgun asset num is ', len(assets)
-    print 'asset content:'
+    print 'Shotgun Asset num is ', len(assets)
+    print 'Asset Content:'
     for x in assets:
         print '-- [', x['name'], ']  AssetType : <', getAssetType(x['name'])['sg_asset_type'], '>'
-    print 'task content:'
+    print 'Task Information:'
     for x in tasks:
         assignto = getTaskInfor(x['name'])['task_assignees']
         if assignto:
