@@ -37,10 +37,7 @@ def getTaskInfor(taskName):
     return taskInfor
 
 
-def run():
-    current_shot = mc.file(q=True, sn=True).split('_')
-    shot_name = '_'.join(current_shot[1:3])
-
+def information(shot_name):
     assets = getShotInfo(shot_name)['assets']
     tasks = getShotInfo(shot_name)['tasks']
     print '#' * 60
@@ -68,3 +65,9 @@ def run():
         print '-- [', x['name'], ']  AssignTo : <', user_name, '>'
     print '#' * 60
     mc.ScriptEditor()
+
+
+def run():
+    current_shot = mc.file(q=True, sn=True).split('_')
+    shot_name = '_'.join(current_shot[1:3])
+    information(shot_name)
