@@ -22,7 +22,7 @@ def getAssetType(asset):
         ['code', 'is', asset],
         ['project', 'is', {'type': 'Project', 'id': projeceInfo['id']}]
     ],
-                            ['sg_asset_type', 'sg_asset_name__cn', 'code'])
+                            ['sg_asset_type', 'sg_asset_name__cn', 'code', 'tasks'])
     return assetInfo
 
 
@@ -54,6 +54,18 @@ def information(shot_name):
 
         print '-- [', x['name'], '] NameCn :', cnName, '] AssetType : <', getAssetType(x['name'])[
             'sg_asset_type'], '>'
+        assetTaskInfor = getAssetType(x['name'])['tasks']
+        if assetTaskInfor:
+            for assettask in assetTaskInfor:
+                if assettask['name'].endswith('_mdl') or assettask['name'].endswith('_rig') or assettask['name'].endswith('_shd'):
+                    assetTaskAssignto = getTaskInfor(assettask['name'])['task_assignees']
+                    if assetTaskAssignto:
+                        assetTaskUser = assetTaskAssignto[0]['name'].decode('utf-8')
+                    else:
+                        assetTaskUser = None
+                    print '-' * 20, '<{}>:'.format(assettask['name']), assetTaskUser
+
+
     print 'Task Information:'
     for x in tasks:
         assignto = getTaskInfor(x['name'])['task_assignees']
