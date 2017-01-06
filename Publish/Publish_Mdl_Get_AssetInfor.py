@@ -5,13 +5,17 @@ import os
 
 
 def checkScene():
-    filename = os.path.basename(pm.sceneName())
-    if filename.split('_')[1][0].isdigit():
-        # scene is shot file
-        return False
+    if pm.sceneName():
+        filename = os.path.basename(pm.sceneName())
+
+        if filename.split('_')[1][0].isdigit():
+            # scene is shot file
+            return False
+        else:
+            # scene is asset file
+            return True
     else:
-        # scene is asset file
-        return True
+        return False
 
 
 def assetName():
@@ -34,8 +38,28 @@ def run():
                     userName = user[0]['name'].decode('utf-8')
                 else:
                     userName = None
-                print '-' * 15, '{}:'.format(task['name'].split('_')[-1]), userName
+                print ' ' * 5, '[ {} ]:'.format(task['name'].split('_')[-1]), userName
         print 'Relate Shot:'
-
+        shots = ougs.getAssetInfor(name)['shots']
+        if shots:
+            for shot in shots:
+                description = ougs.getShotInfo(shot['name'])['description']
+                if description:
+                    descriptionInfor = description.decode('utf-8')
+                else:
+                    descriptionInfor = None
+                print ' ' * 5, '[ {} ]: '.format(shot['name']), descriptionInfor,u'(备注)'
+                shotTasks = ougs.getShotInfo(shot['name'])['tasks']
+                if shotTasks:
+                    for shotTask in shotTasks:
+                        if shotTask['name'].endswith('_lgt'):
+                            shotTaskUser = ougs.getTaskInfor(shotTask['name'])['task_assignees']
+                            if shotTaskUser:
+                                shotTaskUserName = shotTaskUser[0]['name'].decode('utf-8')
+                            else:
+                                shotTaskUserName = None
+                            print ' ' * 10, '[ {} ]'.format(shotTask['name']), shotTaskUserName
 
         print '-' * 60
+    else:
+        pm.warning(u'这个文件不是资产文件,不能获取信息')
