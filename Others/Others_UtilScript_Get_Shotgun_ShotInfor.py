@@ -52,7 +52,7 @@ def information_shot(shot_name):
         else:
             cnName = None
 
-        print '-- [', x['name'], '] NameCn :', cnName, '] AssetType : <', getAssetInfor(x['name'])[
+        print '   [', x['name'], '] NameCn :', cnName, '] AssetType : <', getAssetInfor(x['name'])[
             'sg_asset_type'], '>'
         assetTaskInfor = getAssetInfor(x['name'])['tasks']
         if assetTaskInfor:
@@ -63,7 +63,7 @@ def information_shot(shot_name):
                         assetTaskUser = assetTaskAssignto[0]['name'].decode('utf-8')
                     else:
                         assetTaskUser = None
-                    print '-' * 20, '<{}>:'.format(assettask['name']), assetTaskUser
+                    print ' ' * 15, '<{}>:'.format(assettask['name']), assetTaskUser
 
 
     print 'Task Information:'
@@ -74,7 +74,7 @@ def information_shot(shot_name):
         else:
             user_name = None
 
-        print '-- [', x['name'], ']  AssignTo : <', user_name, '>'
+        print '   [', x['name'], ']  AssignTo : <', user_name, '>'
     print '#' * 60
     mc.ScriptEditor()
 

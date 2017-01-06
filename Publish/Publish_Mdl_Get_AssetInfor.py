@@ -58,6 +58,7 @@ def information_asset(name):
                         print ' ' * 10, '[ {} ]'.format(shotTask['name']), shotTaskUserName
 
     print '-' * 60
+    pm.ScriptEditor()
 
 
 def run():
