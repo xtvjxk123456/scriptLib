@@ -20,7 +20,7 @@ def checkScene():
 
 def assetName():
     filename = os.path.basename(pm.sceneName())
-    return filename.split('_')[2]
+    return filename.split('_')[1]
 
 
 def information_asset(name):
