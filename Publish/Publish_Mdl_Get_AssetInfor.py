@@ -23,43 +23,45 @@ def assetName():
     return filename.split('_')[2]
 
 
+def information_asset(name):
+    print '-' * 60
+    print '-------------Asset %s----------------' % name
+    print 'Task Info:'
+    tasks = ougs.getAssetInfor(name)['tasks']
+    if tasks:
+        for task in tasks:
+            user = ougs.getTaskInfor(task['name'])['task_assignees']
+            if user:
+                userName = user[0]['name'].decode('utf-8')
+            else:
+                userName = None
+            print ' ' * 5, '[ {} ]:'.format(task['name'].split('_')[-1]), userName
+    print 'Relate Shot:'
+    shots = ougs.getAssetInfor(name)['shots']
+    if shots:
+        for shot in shots:
+            description = ougs.getShotInfo(shot['name'])['description']
+            if description:
+                descriptionInfor = description.decode('utf-8')
+            else:
+                descriptionInfor = None
+            print ' ' * 5, '[ {} ]: '.format(shot['name']), descriptionInfor, u'(备注)'
+            shotTasks = ougs.getShotInfo(shot['name'])['tasks']
+            if shotTasks:
+                for shotTask in shotTasks:
+                    if shotTask['name'].endswith('_lgt'):
+                        shotTaskUser = ougs.getTaskInfor(shotTask['name'])['task_assignees']
+                        if shotTaskUser:
+                            shotTaskUserName = shotTaskUser[0]['name'].decode('utf-8')
+                        else:
+                            shotTaskUserName = None
+                        print ' ' * 10, '[ {} ]'.format(shotTask['name']), shotTaskUserName
+
+    print '-' * 60
+
+
 def run():
     if checkScene():
-        name = assetName()
-
-        print '-' * 60
-        print '-------------Asset %s----------------' % name
-        print 'Task Info:'
-        tasks = ougs.getAssetInfor(name)['tasks']
-        if tasks:
-            for task in tasks:
-                user = ougs.getTaskInfor(task['name'])['task_assignees']
-                if user:
-                    userName = user[0]['name'].decode('utf-8')
-                else:
-                    userName = None
-                print ' ' * 5, '[ {} ]:'.format(task['name'].split('_')[-1]), userName
-        print 'Relate Shot:'
-        shots = ougs.getAssetInfor(name)['shots']
-        if shots:
-            for shot in shots:
-                description = ougs.getShotInfo(shot['name'])['description']
-                if description:
-                    descriptionInfor = description.decode('utf-8')
-                else:
-                    descriptionInfor = None
-                print ' ' * 5, '[ {} ]: '.format(shot['name']), descriptionInfor,u'(备注)'
-                shotTasks = ougs.getShotInfo(shot['name'])['tasks']
-                if shotTasks:
-                    for shotTask in shotTasks:
-                        if shotTask['name'].endswith('_lgt'):
-                            shotTaskUser = ougs.getTaskInfor(shotTask['name'])['task_assignees']
-                            if shotTaskUser:
-                                shotTaskUserName = shotTaskUser[0]['name'].decode('utf-8')
-                            else:
-                                shotTaskUserName = None
-                            print ' ' * 10, '[ {} ]'.format(shotTask['name']), shotTaskUserName
-
-        print '-' * 60
+        information_asset(assetName())
     else:
         pm.warning(u'这个文件不是资产文件,不能获取信息')

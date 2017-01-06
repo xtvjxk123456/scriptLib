@@ -37,7 +37,7 @@ def getTaskInfor(taskName):
     return taskInfor
 
 
-def information(shot_name):
+def information_shot(shot_name):
     assets = getShotInfo(shot_name)['assets']
     tasks = getShotInfo(shot_name)['tasks']
     print '#' * 60
@@ -82,4 +82,4 @@ def information(shot_name):
 def run():
     current_shot = mc.file(q=True, sn=True).split('_')
     shot_name = '_'.join(current_shot[1:3])
-    information(shot_name)
+    information_shot(shot_name)
