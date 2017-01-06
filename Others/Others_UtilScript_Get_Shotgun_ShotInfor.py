@@ -16,13 +16,13 @@ def getShotInfo(shot):
     return shotInfo
 
 
-def getAssetType(asset):
+def getAssetInfor(asset):
     projeceInfo = sg.find_one("Project", [['name', 'is', 'df']], ['code', 'sg_description', 'project', 'name'])
     assetInfo = sg.find_one("Asset", [
         ['code', 'is', asset],
         ['project', 'is', {'type': 'Project', 'id': projeceInfo['id']}]
     ],
-                            ['sg_asset_type', 'sg_asset_name__cn', 'code', 'tasks'])
+                            ['sg_asset_type', 'sg_asset_name__cn', 'code', 'tasks','shots'])
     return assetInfo
 
 
@@ -46,15 +46,15 @@ def information(shot_name):
     print 'Shotgun Asset num is ', len(assets)
     print 'Asset Content:'
     for x in assets:
-        CNInfo = getAssetType(x['name'])['sg_asset_name__cn']
+        CNInfo = getAssetInfor(x['name'])['sg_asset_name__cn']
         if CNInfo:
             cnName = CNInfo.decode('utf-8')
         else:
             cnName = None
 
-        print '-- [', x['name'], '] NameCn :', cnName, '] AssetType : <', getAssetType(x['name'])[
+        print '-- [', x['name'], '] NameCn :', cnName, '] AssetType : <', getAssetInfor(x['name'])[
             'sg_asset_type'], '>'
-        assetTaskInfor = getAssetType(x['name'])['tasks']
+        assetTaskInfor = getAssetInfor(x['name'])['tasks']
         if assetTaskInfor:
             for assettask in assetTaskInfor:
                 if assettask['name'].endswith('_mdl') or assettask['name'].endswith('_rig') or assettask['name'].endswith('_shd'):
