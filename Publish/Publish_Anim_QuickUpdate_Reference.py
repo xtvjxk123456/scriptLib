@@ -1,9 +1,14 @@
+import maya.cmds as mc
+
+
 def run():
-    import deleteInvaildReferenceNode;deleteInvaildReferenceNode.run()
-    import deleteInvaildReferenceNode;deleteInvaildReferenceNode.run()
+    import deleteInvaildReferenceNode;
+    deleteInvaildReferenceNode.run()
+    import deleteInvaildReferenceNode;
+    deleteInvaildReferenceNode.run()
 
     try:
-        mc.delete(mc.ls(type ='polyColorPerVertex'))
+        mc.delete(mc.ls(type='polyColorPerVertex'))
     except:
         pass
 
@@ -14,5 +19,7 @@ def run():
     dlg.select_all_red()
     dlg.do_update()
     dlg.close()
-    import deleteInvaildReferenceNode;deleteInvaildReferenceNode.run()
-    import deleteInvaildReferenceNode;deleteInvaildReferenceNode.run()
+    import deleteInvaildReferenceNode;
+    deleteInvaildReferenceNode.run()
+    import deleteInvaildReferenceNode;
+    deleteInvaildReferenceNode.run()
