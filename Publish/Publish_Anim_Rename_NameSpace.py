@@ -1,31 +1,30 @@
 # coding:utf-8
-import pymel.core as pm
+import maya.OpenMaya as om
 import re, os
 import maya.cmds as mc
 
 
 def run():
-    references = pm.ls(type='reference')
+    references_path = {}
+    om.MFileIO.getReferences(references_path)
 
-    if len(references) == 0:
+    if len(references_path) == 0:
         mc.warning('no References!!!!!!!')
         return None
-    for x in references:
-        try:
-            pm.referenceQuery(x, f=True, wcn=True)
-        except Exception:
-            continue
-        ref = pm.FileReference(x)
-        normalPath = ref.path
-        assetName = os.path.basename(normalPath).split('_')[1]
-        cnPath = ref.withCopyNumber()
+    for x in references_path:
 
-        if normalPath != cnPath:
-            num = re.match(r'.*?\{(\d*)\}', cnPath).group(1)
+        refNode = mc.file(x, q=True, rfn=True)
+        resolve_path = mc.referenceQuery(refNode, f=True)
+        unresolve_path = mc.referenceQuery(refNode, f=True, wcn=True)
+        assetName = os.path.basename(resolve_path).split('_')[1]
+        ref_namespace = mc.referenceQuery(refNode, ns=True)
+
+        if unresolve_path != resolve_path:
+            num = re.match(r'.*?\{(\d*)\}', resolve_path).group(1)
             NS = assetName + str(num)
         else:
             NS = assetName
         try:
-            pm.namespace(rename=(ref.namespace, NS))
+            mc.namespace(rename=(ref_namespace, NS))
         except Exception:
             pass
