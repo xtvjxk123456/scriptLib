@@ -5,7 +5,7 @@ import maya.cmds as mc
 
 
 def run():
-    references_path = {}
+    references_path = []
     om.MFileIO.getReferences(references_path)
 
     if len(references_path) == 0:
