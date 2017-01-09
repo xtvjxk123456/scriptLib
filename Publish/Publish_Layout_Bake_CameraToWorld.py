@@ -9,28 +9,28 @@ import maya.cmds as mc
 
 def lockObjectTransform(shapename):
     name = pm.PyNode(shapename).getParent()
-    pm.PyNode(name).attr('tx').lock()
-    pm.PyNode(name).attr('ty').lock()
-    pm.PyNode(name).attr('tz').lock()
-    pm.PyNode(name).attr('rx').lock()
-    pm.PyNode(name).attr('ry').lock()
-    pm.PyNode(name).attr('rz').lock()
-    pm.PyNode(name).attr('sx').lock()
-    pm.PyNode(name).attr('sy').lock()
-    pm.PyNode(name).attr('sz').lock()
+    name.attr('tx').lock()
+    name.attr('ty').lock()
+    name.attr('tz').lock()
+    name.attr('rx').lock()
+    name.attr('ry').lock()
+    name.attr('rz').lock()
+    name.attr('sx').lock()
+    name.attr('sy').lock()
+    name.attr('sz').lock()
 
 
 def UnlockObjectTransform(shapename):
     name = pm.PyNode(shapename).getParent()
-    pm.PyNode(name).attr('tx').unlock()
-    pm.PyNode(name).attr('ty').unlock()
-    pm.PyNode(name).attr('tz').unlock()
-    pm.PyNode(name).attr('rx').unlock()
-    pm.PyNode(name).attr('ry').unlock()
-    pm.PyNode(name).attr('rz').unlock()
-    pm.PyNode(name).attr('sx').unlock()
-    pm.PyNode(name).attr('sy').unlock()
-    pm.PyNode(name).attr('sz').unlock()
+    name.attr('tx').unlock()
+    name.attr('ty').unlock()
+    name.attr('tz').unlock()
+    name.attr('rx').unlock()
+    name.attr('ry').unlock()
+    name.attr('rz').unlock()
+    name.attr('sx').unlock()
+    name.attr('sy').unlock()
+    name.attr('sz').unlock()
 
 
 def DeleteKeyFrameInTransfrom(transform):
