@@ -1,10 +1,8 @@
 # coding:utf-8
 import os
 import pymel.core as pm
-import pixoLibs.pixoFileTools as pft
-# import maya.mel as mel
-import maya.cmds as mc
 
+import maya.cmds as mc
 
 
 def lockObjectTransform(shapename):
