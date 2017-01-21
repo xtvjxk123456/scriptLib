@@ -30,6 +30,6 @@ def get_latest_camera():
 def run():
     camfile = get_latest_camera()
     if camfile:
-        pm.createReference(camfile,namespace='CamFocus')
+        pm.importFile(camfile,namespace='CamFocus')
     else:
         pm.warning(u'请检查场景文件名或者cam publish目录....')
