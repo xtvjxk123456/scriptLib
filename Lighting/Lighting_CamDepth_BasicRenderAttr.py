@@ -1,6 +1,7 @@
 # coding:utf-8
 import pymel.core as pm
-
+import pixoLibs.pixoShotgun as psg
+import os
 
 def init():
     if not pm.pluginInfo('mtoa.mll', q=True, l=True):
@@ -13,8 +14,23 @@ def init():
     pm.mel.RenderGlobalsWindow()
 
 
+def get_sg_time_range():
+    """
+    return SG FrameRange
+    return Type:tuple
+    """
+
+    filename = os.path.basename(pm.sceneName())
+    seq = filename.split('_')[1]
+    shot = filename.split('_')[2]
+    project = filename.split('_')[0]
+    return psg.get_cut_range(project, '%s_%s' % (seq, shot))
+
+
 def run():
     init()
+    begin, end = get_sg_time_range()
+
     defaultRender = pm.PyNode('defaultRenderGlobals')
     defaultRender.imageFilePrefix.set('<RenderLayer>/<RenderLayer>')
     defaultRender.animation.set(True)
@@ -22,6 +38,8 @@ def run():
     defaultRender.putFrameBeforeExt.set(1)
     defaultRender.extensionPadding.set(4)
     defaultRender.periodInExt.set(1)
+    defaultRender.startFrame.set(begin)
+    defaultRender.endFrame.set(end)
 
     defaultDriver = pm.PyNode('defaultArnoldDriver')
     defaultDriver.aiTranslator.set('exr')
