@@ -4,6 +4,7 @@ import os
 import pixoLibs.pixoFileTools as pft
 import shutil
 
+
 def run():
     if not pm.ls('CamFocus:Camera'):
         pm.warning(u'没有可以导出的相机')
@@ -23,7 +24,7 @@ def run():
     imagedir = os.path.join(projectdir, 'images')
     # os.makedirs(os.path.join(os.path.dirname(pubfile), 'images'))
     # pm.sysFile(imagedir, copy=os.path.join(os.path.dirname(pubfile), 'images'))
-    shutil.copytree(imagedir,os.path.join(os.path.dirname(pubfile), 'images'))
+    shutil.copytree(imagedir, os.path.join(os.path.dirname(pubfile), 'images'))
 
     pm.select(pm.ls('CamFocus:Camera'), r=True)
     pm.exportSelected(os.path.splitext(pubfile)[0] + '.ma', force=True)
