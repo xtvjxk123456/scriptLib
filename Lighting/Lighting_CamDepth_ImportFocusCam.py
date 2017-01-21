@@ -30,6 +30,11 @@ def get_latest_camera():
 def run():
     camfile = get_latest_camera()
     if camfile:
-        pm.importFile(camfile,namespace='CamFocus')
+        fileref = pm.createReference(camfile,namespace='CamFocus')
+        nodes = fileref.nodes()
+        cam = filter(lambda x: x.name().startswith('CamFocus:cam_') and x.type()=='transform',nodes)
+        # print cam
+        fileref.importContents(removeNamespace =True)
+        pm.rename(cam[0],cam[0].name().replace('cam_','cam_focus_'))
     else:
         pm.warning(u'请检查场景文件名或者cam publish目录....')
