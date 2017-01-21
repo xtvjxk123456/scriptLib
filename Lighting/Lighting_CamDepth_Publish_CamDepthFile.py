@@ -17,4 +17,7 @@ def run():
     publishFocus = os.path.join(publishdir, 'CamFocus/{}_{}_{}_cam.ma'.format(path_obj.project, path_obj.seq, path_obj.shot))
     os.makedirs(os.path.dirname(os.path.normpath(publishFocus)))
     pm.exportSelected(os.path.normpath(publishFocus),force=True)
-    pm.warning(u'导出CamFocus相机完成')
+
+    pm.saveAs(os.path.join(os.path.dirname(os.path.normpath(publishFocus)),os.path.basename(pm.sceneName())))
+
+    pm.warning(u'导出CamFocus相机完成,文件另存为完成')
