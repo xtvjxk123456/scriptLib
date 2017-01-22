@@ -41,7 +41,8 @@ def run():
     seqfile = os.path.normpath(os.path.join(os.path.dirname(pubfile), 'images/focus/focus.%04d.exr'))
     movfile = os.path.join(os.path.dirname(pubfile), '{}.mov'.format(os.path.basename(pubfile).split('.')[0]))
     beginframe, endframe = psg.get_cut_range(path_obj.project, '%s_%s' % (path_obj.seq, path_obj.shot))
-    framenum = endframe - beginframe + 1
+    framenum = endframe - beginframe + 2
+    # 这里有个bug在ffmpeg里
     convertcmd = '{} -start_number 1001 -f image2 -r 24 -i {} -vcodec h264 -vframes {} -s 1024X429 {}'.format(mmfpeg,
                                                                                                               seqfile,
                                                                                                               framenum,
