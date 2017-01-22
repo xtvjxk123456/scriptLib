@@ -62,4 +62,4 @@ def run():
     # --------------------------------------------------------------------------------------------------------
     # 打开publish目录
     pm.warning(u'导出CamFocus相机完成,文件另存为完成,序列帧复制完成')
-    os.startfile(os.path.join(os.path.dirname(pubfile), 'images'))
+    os.startfile(os.path.dirname(pubfile))
