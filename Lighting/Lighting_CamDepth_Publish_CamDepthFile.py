@@ -25,7 +25,7 @@ def run():
     # --------------------------------------------------------------------------------------------------------
     # 序列帧输出
     projectdir = pm.Workspace.getPath()
-    imagedir = os.path.join(projectdir, 'images')
+    imagedir = os.path.join(projectdir, 'images/focus')
     # os.makedirs(os.path.join(os.path.dirname(pubfile), 'images'))
     # pm.sysFile(imagedir, copy=os.path.join(os.path.dirname(pubfile), 'images'))
     shutil.copytree(imagedir, os.path.join(os.path.dirname(pubfile), 'images/focus'))
