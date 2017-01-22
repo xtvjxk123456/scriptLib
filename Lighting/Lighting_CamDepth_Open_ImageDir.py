@@ -5,5 +5,5 @@ import os
 
 def run():
     projectdir = pm.Workspace.getPath()
-    imagedir = os.path.join(projectdir, 'images')
+    imagedir = os.path.join(projectdir, 'images/focus')
     os.startfile(imagedir)
