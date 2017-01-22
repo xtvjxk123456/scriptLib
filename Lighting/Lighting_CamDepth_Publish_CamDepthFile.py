@@ -2,6 +2,7 @@
 import pymel.core as pm
 import os
 import pixoLibs.pixoFileTools as pft
+#import pixoLibs.pixoShotgun as psg
 import shutil
 
 
@@ -20,17 +21,28 @@ def run():
         return
     os.makedirs(os.path.dirname(pubfile))
 
+    # --------------------------------------------------------------------------------------------------------
+    # 序列帧输出
     projectdir = pm.Workspace.getPath()
     imagedir = os.path.join(projectdir, 'images')
     # os.makedirs(os.path.join(os.path.dirname(pubfile), 'images'))
     # pm.sysFile(imagedir, copy=os.path.join(os.path.dirname(pubfile), 'images'))
     shutil.copytree(imagedir, os.path.join(os.path.dirname(pubfile), 'images'))
-
-    # pm.select(pm.ls('CamFocus:Camera'), r=True)
-    cams =map(lambda x: x.getParent(), filter(lambda x: x.name().startswith('cam_focus_'), pm.ls(type='camera')))
+    # --------------------------------------------------------------------------------------------------------
+    # 相机输出
+    cams = map(lambda x: x.getParent(), filter(lambda x: x.name().startswith('cam_focus_'), pm.ls(type='camera')))
     pm.select(cams)
-    pm.exportSelected(os.path.splitext(pubfile)[0] + '.ma', force=True)
-    pm.saveAs(os.path.join(os.path.dirname(pubfile), os.path.basename(pm.sceneName())))
+    camsFile =os.path.splitext(pubfile)[0] + '.ma'
+    pm.exportSelected(camsFile, force=True)
+    # --------------------------------------------------------------------------------------------------------
+    # 上传shotgun
+    # psg.addToShotgun(camsFile, '')
+    # --------------------------------------------------------------------------------------------------------
+    # 输出制作文件
+    animSourceFile = os.path.join(os.path.dirname(pubfile), os.path.basename(pm.sceneName()))
+    pm.saveAs(animSourceFile)
 
+    # --------------------------------------------------------------------------------------------------------
+    # 打开publish目录
     pm.warning(u'导出CamFocus相机完成,文件另存为完成,序列帧复制完成')
     os.startfile(os.path.join(os.path.dirname(pubfile), 'images'))
