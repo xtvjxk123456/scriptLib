@@ -39,8 +39,8 @@ def run():
     # psg.addToShotgun(camsFile, '')
     # --------------------------------------------------------------------------------------------------------
     # 输出制作文件
-    animSourceFile = os.path.join(os.path.dirname(pubfile), os.path.basename(pm.sceneName()))
-    pm.saveAs(animSourceFile)
+    # animSourceFile = os.path.join(os.path.dirname(pubfile), os.path.basename(pm.sceneName()))
+    # pm.saveAs(animSourceFile)
 
     # --------------------------------------------------------------------------------------------------------
     # 打开publish目录
