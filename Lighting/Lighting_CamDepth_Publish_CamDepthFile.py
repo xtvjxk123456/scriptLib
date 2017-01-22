@@ -28,7 +28,7 @@ def run():
     imagedir = os.path.join(projectdir, 'images')
     # os.makedirs(os.path.join(os.path.dirname(pubfile), 'images'))
     # pm.sysFile(imagedir, copy=os.path.join(os.path.dirname(pubfile), 'images'))
-    shutil.copytree(imagedir, os.path.join(os.path.dirname(pubfile), 'images'))
+    shutil.copytree(imagedir, os.path.join(os.path.dirname(pubfile), 'images/focus'))
     # --------------------------------------------------------------------------------------------------------
     # 相机输出
     cams = map(lambda x: x.getParent(), filter(lambda x: x.name().startswith('cam_focus_'), pm.ls(type='camera')))
