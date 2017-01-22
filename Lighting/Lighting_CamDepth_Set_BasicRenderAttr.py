@@ -59,7 +59,7 @@ def run():
     defaultRenderOption.ignoreShaders.set(True)
 
     defaultRenderResolution = pm.PyNode('defaultResolution')
-    defaultRenderResolution.width.set(2048)
-    defaultRenderResolution.height.set(858)
+    defaultRenderResolution.width.set(1024)
+    defaultRenderResolution.height.set(429)
     defaultRenderResolution.deviceAspectRatio.set(2.387)
     defaultRenderResolution.pixelAspect.set(1.000)
