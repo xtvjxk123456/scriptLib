@@ -40,7 +40,7 @@ def run():
     defaultRender.periodInExt.set(1)
     defaultRender.startFrame.set(begin)
     pm.editRenderLayerAdjustment('defaultRenderGlobals.endFrame')
-    defaultRender.endFrame.set(end+1)
+    defaultRender.endFrame.set(end)
 
     defaultDriver = pm.PyNode('defaultArnoldDriver')
     defaultDriver.aiTranslator.set('exr')
