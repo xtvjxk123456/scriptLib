@@ -13,6 +13,7 @@ import aas_sg
 
 sg = aas_sg.get_standalone_sg()
 ASSETLIBPATH = 'Z:/Shotgun/projects/df/_library/assets/'
+projectName = 'df'
 
 
 def getMayaWindow():
@@ -53,7 +54,10 @@ def getAssetPath(asset, task):
 
 
 def getAllAsset():
-    assets = sg.find('Asset', [], ['code'])
+    projeceInfo = sg.find_one("Project", [['name', 'is', projectName]], ['code', 'sg_description', 'project', 'name'])
+    assets = sg.find('Asset', [
+                                ['project', 'is', {'type': 'Project', 'id': projeceInfo['id']}]
+                                ], ['code'])
     codes = [x['code'] for x in assets]
     return codes
 
