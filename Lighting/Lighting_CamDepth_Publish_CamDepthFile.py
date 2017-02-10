@@ -43,7 +43,7 @@ def run():
     beginframe, endframe = psg.get_cut_range(path_obj.project, '%s_%s' % (path_obj.seq, path_obj.shot))
     framenum = endframe - beginframe + 2
     # 这里有个bug在ffmpeg里
-    convertcmd = '{} -start_number 1001 -f image2 -r 24 -i {} -vcodec h264 -vframes {} -s 1024X429 {}'.format(mmfpeg,
+    convertcmd = '-apply_trc iec61966_2_1 {} -start_number 1001 -f image2 -r 24 -i {} -vcodec h264 -vframes {} -s 1024X429 {}'.format(mmfpeg,
                                                                                                               seqfile,
                                                                                                               framenum,
                                                                                                               movfile)
