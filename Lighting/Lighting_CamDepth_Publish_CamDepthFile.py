@@ -57,7 +57,7 @@ def run():
         psg.uploadQuicktime(versionID, movfile)
     # --------------------------------------------------------------------------------------------------------
     # 输出制作文件
-    animSourceFile = os.path.join(os.path.dirname(pubfile), os.path.basename(pm.sceneName()))
+    animSourceFile = os.path.join(os.path.dirname(pubfile), os.path.basename(pm.sceneName()).replace("anim",'focus'))
     pm.saveAs(animSourceFile)
 
     # --------------------------------------------------------------------------------------------------------
