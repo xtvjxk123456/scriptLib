@@ -32,7 +32,7 @@ def run():
     # --------------------------------------------------------------------------------------------------------
     # 相机输出
     cams = map(lambda x: x.getParent(), filter(lambda x: x.name().startswith('cam_focus_'), pm.ls(type='camera')))
-    pm.select(cams)
+    pm.select(cams,r=True)
     camsFile = os.path.splitext(pubfile)[0] + '.ma'
     pm.exportSelected(camsFile, force=True)
     # --------------------------------------------------------------------------------------------------------
