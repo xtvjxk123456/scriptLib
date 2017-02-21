@@ -14,6 +14,10 @@ def run():
 
     if pm.ls(type='unknown'):
         pm.delete(pm.ls(type='unknown'))
+    if pm.ls('shaveGlobals'):
+        pm.lockNode(pm.ls('shaveGlobals'),l=False)
+        pm.delete(pm.ls('shaveGlobals'))
+
 
     path_obj = pft.PathDetails.parse_path(pm.sceneName())
     pubfile = path_obj.getNewVersionForTask('cam-focus', publish=True)
