@@ -1,45 +1,44 @@
 # coding:utf-8
-import pymel.core as pm
+import maya.cmds as mc
 import Publish_Mdl_Check_FaceShader as pmcfs
 import maya.OpenMaya as om
 
 
-def getObj():
-    meshs = pmcfs.getObjWithFaceShader()
-    names = map(lambda x: x.name(), meshs)
-    return names
-
-
 def fixFaceShaderObject(shapename):
-    shape = pm.PyNode(shapename)
-    sgs = pm.listConnections(shape, t='shadingEngine')
-    sgs = list(set(sgs))
+    # 确保这个shape不是一个instanced对象
 
-    pm.delete(shape, ch=True)
+    templist = om.MSelectionList()
+    om.MGlobal.getSelectionListByName(shapename, templist)
+    shapedagpath = om.MDagPath()
+    templist.getDagPath(0, shapedagpath)
+    fnmesh = om.MFnMesh(shapedagpath)
 
-    faces = [x for x in sgs[0].members() if shapename in x.name()]
-    faceidlist = []
-    for x in faces:
-        shellid = om.MIntArray()
-        x.__apicomponent__().getElements(shellid)
-        faceidlist.extend(list(shellid))
-    selectface = om.MIntArray()
-    om.MScriptUtil.createIntArrayFromList(faceidlist, selectface)
+    sgs = om.MObjectArray()
+    faceinsg = om.MObjectArray()
+    fnmesh.getConnectedSetsAndMembers(0, sgs, faceinsg, True)
 
-    trans = om.MFloatVector()
-    shape.__apimfn__().extractFaces(selectface, trans)
-    shape.__apimfn__().updateSurface()
+    fn_firstsg = om.MFnDependencyNode(sgs[0])
+    firstsgname = fn_firstsg.name()
 
+    fn_compent = om.MFnSingleIndexedComponent(faceinsg[0])
+    m_faceid = om.MIntArray()
+    fn_compent.getElements(m_faceid)
+
+    tempTrans = om.MFloatVector()
+    fnmesh.extractFaces(m_faceid, tempTrans)
+    fnmesh.updateSurface()
     try:
-        shapes = pm.polySeparate(shape, ch=False)
+        shapes = mc.polySeparate(fnmesh.fullPathName(), ch=False)
     except RuntimeError:
         shapes = []
 
     if filter(pmcfs.checkShaderMulti, shapes):
-        for x in filter(pmcfs.checkShaderMulti, shapes):
-            fixFaceShaderObject(x)
+        for objname in filter(pmcfs.checkShaderMulti, shapes):
+            fixFaceShaderObject(objname)
 
 
 def run():
-    map(fixFaceShaderObject,getObj()[0:5])
-    pm.warning('Fix faceshader(five objs at least) finished.')
+    meshs, _ = pmcfs.getObjWithFaceShader()
+
+    map(fixFaceShaderObject, meshs[0:5])
+    mc.warning('Fix faceshader(five objs at least) finished.')
