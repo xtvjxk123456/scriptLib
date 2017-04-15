@@ -2,6 +2,9 @@
 
 
 def run():
+    import Publish_Anim_Export_AnimABC_noUI
+    Publish_Anim_Export_AnimABC_noUI.run()
+
     import pixoMaya.shelf.playblast as pb
     pb.run()
     # ------------------------------------------
@@ -9,5 +12,3 @@ def run():
     Publish_Cam_CamPublish.run()
     # ------------------------------------------
 
-    import Publish_Anim_Export_AnimABC_noUI
-    Publish_Anim_Export_AnimABC_noUI.run()
