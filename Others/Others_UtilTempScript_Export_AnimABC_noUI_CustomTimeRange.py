@@ -57,7 +57,8 @@ def run():
     mainlayout = cmds.columnLayout('mainlayout', p=customUI)
     beginctrl = cmds.intFieldGrp(l='Begin', v1=0, p=mainlayout)
     endctrl = cmds.intFieldGrp(l='End', v1=1, p=mainlayout)
-    begin= cmds.intFieldGrp(beginctrl,q=True,v1=True)
-    end= cmds.intFieldGrp(endctrl,q=True,v1=True)
-    exportbutton = cmds.button(l='Export', c=lambda *argv: exportCustomTime(begin, end), p=mainlayout)
+    # begin= cmds.intFieldGrp(beginctrl,q=True,v1=True)
+    # end= cmds.intFieldGrp(endctrl,q=True,v1=True)
+    exportbutton = cmds.button(l='Export', c=lambda *argv: exportCustomTime(int(cmds.intFieldGrp(beginctrl,q=True,v1=True)),
+                                                                            int(cmds.intFieldGrp(endctrl,q=True,v1=True))), p=mainlayout)
     cmds.showWindow(customUI)
