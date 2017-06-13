@@ -45,7 +45,7 @@ def run():
     if mc.window('customtimeCFX', q=True, ex=True):
         mc.deleteUI('customtimeCFX')
 
-    customUI = mc.window('customtimeCFX', t='set time range', mnb=True, mxb=True, rtf=True)
+    customUI = mc.window('customtimeCFX', t='set CFX time range', mnb=True, mxb=True, rtf=True)
     mainlayout = mc.columnLayout('mainlayout', p=customUI)
     beginctrl = mc.intFieldGrp(l='Begin', v1=0, p=mainlayout)
     endctrl = mc.intFieldGrp(l='End', v1=1, p=mainlayout)
